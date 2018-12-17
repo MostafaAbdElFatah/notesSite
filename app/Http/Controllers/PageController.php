@@ -11,7 +11,8 @@ class PageController extends Controller
 {
     public function show()
     {
-    	$pages = DB::table('pages')->get();
+    	//$pages = DB::table('pages')->get();
+    	$pages = Page::all();
         return view('pages.show', compact('pages'));
     }
 
