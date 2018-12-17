@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', 'notesController@show');
-Route::post('insert', 'notesController@insert');
-Route::get('{page}/delete', 'notesController@delete');
+Route::get('/', 'PageController@show');
+Route::post('insert', 'PageController@insert');
+Route::get('{page}/delete', 'PageController@delete');
+Route::get('{page}', 'PageController@showPage');
+
+// sote notes
+
+Route::post('{pageid}/note/insert', 'NoteController@insert');
+Route::get('note/{noteid}/edit', 'NoteController@edit');
+Route::post('note/{noteid}/update', 'NoteController@update');
+Route::get('note/{noteid}/delete', 'NoteController@delete');

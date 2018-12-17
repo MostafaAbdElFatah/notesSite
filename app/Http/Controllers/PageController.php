@@ -7,27 +7,36 @@ use Log;
 use App\Page;
 use DB;
 
-class notesController extends Controller
+class PageController extends Controller
 {
     public function show()
     {
     	$pages = DB::table('pages')->get();
-
         return view('pages.show', compact('pages'));
     }
 
     public function insert(Request $request){
 
+    	$this->validate($request,[
+    		'title' => 'required'
+    	]);
     	$pageModel = new Page;
     	$pageModel->title = $request->title;
-    	$pageModel->notes = "message notes";
     	$pageModel->save();
 
     	return back();
     }
 
     public function delete($id){
-    	Page::where('id', $id)->delete();
+    	$page = Page::find($id);
+    	$page->delete();
+    	$page->notes()->delete();
     	return back();
     }
+
+     public function showPage($id){
+    	$page = Page::find($id);
+    	return view('pages.showPage',compact('page'));
+    }
+    
 }
